@@ -1,0 +1,16 @@
+export const COLORS = [
+  { value: '#FFFFFF', label: 'Blanco' },
+  { value: '#1F1F1F', label: 'Negro' },
+  { value: '#8A8A8A', label: 'Gris' },
+  { value: '#E9DFD2', label: 'Beige' },
+  { value: '#75645B', label: 'Marrón' },
+  { value: '#D9A6AD', label: 'Rosa' },
+  { value: '#C0564F', label: 'Rojo' },
+  { value: '#E0A458', label: 'Naranja' },
+  { value: '#E8D27A', label: 'Amarillo' },
+  { value: '#7FA37F', label: 'Verde' },
+  { value: '#7FA6C9', label: 'Azul' },
+  { value: '#2F3E5C', label: 'Azul marino' },
+  { value: '#A58BC4', label: 'Morado' },
+  { value: '#B89B5E', label: 'Dorado' },
+]
