@@ -1,0 +1,53 @@
+/* ---------- Miniaturas y composición ---------- */
+.piece-thumb { width: 100%; height: 100%; }
+.piece-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.piece-fallback { display: grid; place-items: center; width: 100%; height: 100%; color: rgba(63, 51, 45, 0.55); }
+
+.outfit-preview {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px;
+  background: var(--surface-alt); border-radius: var(--radius);
+}
+.outfit-preview[data-count='1'], .outfit-preview[data-count='2'], .outfit-preview[data-count='4'] { grid-template-columns: repeat(2, 1fr); }
+.outfit-preview.empty {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.4rem;
+  min-height: 160px; color: var(--text-soft); border: 1px dashed var(--border);
+}
+.preview-tile { aspect-ratio: 1; border-radius: var(--radius-sm); overflow: hidden; background: var(--surface); }
+.preview-tile.missing {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.25rem;
+  text-align: center; font-size: 0.7rem; color: #c0564f; border: 1px dashed #c0564f; padding: 0.3rem;
+}
+.outfit-preview.compact { gap: 4px; padding: 6px; }
+.outfit-preview.compact .preview-tile.missing span { display: none; }
+
+/* ---------- Selector de prendas ---------- */
+.modal-wide { max-width: 640px; max-height: 85vh; overflow-y: auto; }
+.picker-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; margin-top: 1rem; }
+.picker-item {
+  display: flex; flex-direction: column; gap: 0.4rem; padding: 0.4rem; text-align: left; cursor: pointer;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm);
+  transition: transform var(--transition);
+}
+.picker-item:hover { transform: translateY(-2px); }
+.picker-item .piece-thumb { aspect-ratio: 1; border-radius: 8px; overflow: hidden; }
+.picker-item span { font-size: 0.8rem; overflow-wrap: anywhere; }
+.picker-item.selected { box-shadow: 0 0 0 2px var(--gold); }
+
+/* ---------- Creador de outfits ---------- */
+.builder-grid { display: grid; grid-template-columns: 1fr 320px; gap: 1.25rem; align-items: start; }
+.builder-side { position: sticky; top: 5rem; }
+.slot-list { display: grid; gap: 0.6rem; margin-bottom: 0.5rem; }
+.slot-card { display: flex; align-items: center; gap: 0.8rem; padding: 0.6rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); }
+.slot-card .slot-media { width: 56px; height: 56px; flex-shrink: 0; border-radius: 8px; overflow: hidden; background: var(--surface-alt); display: grid; place-items: center; color: var(--text-soft); }
+.slot-info { flex: 1; min-width: 0; }
+.slot-info small { display: block; color: var(--text-soft); }
+.slot-info .gone { color: #c0564f; }
+.slot-actions { display: flex; gap: 0.4rem; }
+.slot-actions .btn { padding: 0.4rem 0.9rem; font-size: 0.85rem; }
+.slots-title { font-weight: 500; font-size: 0.9rem; margin: 0.5rem 0; }
+.form-error { color: #c0564f; font-size: 0.82rem; }
+
+@media (max-width: 860px) {
+  .builder-grid { grid-template-columns: 1fr; }
+  .builder-side { position: static; order: -1; }
+}
