@@ -1,0 +1,96 @@
+/* ---------- Barra de herramientas y filtros ---------- */
+.toolbar { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-bottom: 1rem; }
+.search-box { position: relative; flex: 1 1 240px; }
+.search-box svg { position: absolute; left: 0.9rem; top: 50%; transform: translateY(-50%); color: var(--text-soft); }
+.search-box input {
+  width: 100%; padding: 0.65rem 0.9rem 0.65rem 2.5rem; border-radius: 999px;
+  border: 1px solid var(--border); background: var(--surface);
+}
+.filters { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.75rem; margin-bottom: 1rem; }
+.filters select {
+  padding: 0.6rem 0.8rem; border-radius: var(--radius-sm);
+  border: 1px solid var(--border); background: var(--surface);
+}
+.results-line { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin-bottom: 1rem; color: var(--text-soft); font-size: 0.9rem; }
+.view-toggle { display: inline-flex; gap: 0.4rem; }
+.icon-btn.active { background: var(--surface-alt); box-shadow: inset 0 0 0 2px var(--gold); }
+.check { display: inline-flex; align-items: center; gap: 0.4rem; cursor: pointer; }
+
+/* ---------- Tarjetas de prenda ---------- */
+.clothing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.1rem; }
+.clothing-grid.list { grid-template-columns: 1fr; }
+
+.clothing-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); overflow: hidden; display: flex; flex-direction: column;
+  transition: transform var(--transition);
+}
+.clothing-card:hover { transform: translateY(-2px); }
+.clothing-card.list { flex-direction: row; }
+.clothing-media { position: relative; aspect-ratio: 4 / 5; background: var(--surface-alt); }
+.clothing-card.list .clothing-media { width: 110px; flex-shrink: 0; aspect-ratio: 1; }
+.clothing-media img { width: 100%; height: 100%; object-fit: cover; }
+.media-placeholder { display: grid; place-items: center; height: 100%; color: var(--accent-strong); }
+.fav-btn {
+  position: absolute; top: 0.6rem; right: 0.6rem; display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 50%; border: 0; cursor: pointer;
+  background: rgba(255, 255, 255, 0.9); color: var(--brown);
+  transition: transform var(--transition);
+}
+.fav-btn:hover { transform: scale(1.1); }
+.fav-btn.on { color: #c0564f; }
+.clothing-info { padding: 0.9rem 1rem 1rem; display: flex; flex-direction: column; gap: 0.4rem; flex: 1; min-width: 0; }
+.clothing-info h3 { font-size: 1.15rem; overflow-wrap: anywhere; }
+.meta { color: var(--text-soft); font-size: 0.85rem; }
+.chips { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem; }
+.swatch.small { width: 18px; height: 18px; }
+.card-actions { display: flex; gap: 0.5rem; margin-top: auto; padding-top: 0.5rem; }
+.card-actions .icon-btn { width: 34px; height: 34px; }
+
+/* ---------- Modal ---------- */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 40; display: grid; place-items: center;
+  background: rgba(40, 30, 26, 0.45); padding: 1rem; animation: fade-in 0.15s ease;
+}
+.modal {
+  width: 100%; max-width: 420px; background: var(--surface); border-radius: var(--radius);
+  padding: 1.5rem; box-shadow: var(--shadow); border: 1px solid var(--border);
+}
+.modal p { color: var(--text-soft); margin: 0.6rem 0 1.25rem; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 0.6rem; }
+.btn-danger { background: #c0564f; color: #fff; }
+.btn-danger:hover { background: #a9453f; }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Formulario de prenda ---------- */
+.form-card { max-width: 760px; }
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.25rem; }
+.form-grid .full { grid-column: 1 / -1; }
+.field .error { color: #c0564f; font-size: 0.82rem; }
+.field input[aria-invalid='true'], .field select[aria-invalid='true'] { border-color: #c0564f; }
+.field .hint { color: var(--text-soft); font-size: 0.8rem; }
+fieldset.field { border: 0; padding: 0; margin: 0 0 1rem; }
+fieldset.field legend { font-weight: 500; font-size: 0.9rem; padding: 0; margin-bottom: 0.4rem; }
+.swatch-picker { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.swatch-option { position: relative; cursor: pointer; }
+.swatch-option input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+.swatch-option span {
+  display: block; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--border);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.swatch-option:hover span { transform: scale(1.08); }
+.swatch-option input:checked + span { box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--gold); }
+.swatch-option input:focus-visible + span { outline: 2px solid var(--accent-strong); outline-offset: 3px; }
+.image-drop { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+.image-preview {
+  width: 140px; aspect-ratio: 4 / 5; border-radius: var(--radius-sm); overflow: hidden;
+  background: var(--surface-alt); display: grid; place-items: center; color: var(--accent-strong);
+}
+.image-preview img { width: 100%; height: 100%; object-fit: cover; }
+.form-actions { display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 0.5rem; }
+
+@media (max-width: 640px) {
+  .form-grid { grid-template-columns: 1fr; }
+  .clothing-grid { grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+  .clothing-grid.list { grid-template-columns: 1fr; }
+}
