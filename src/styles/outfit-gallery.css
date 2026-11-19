@@ -1,0 +1,20 @@
+.outfit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.1rem; }
+.outfit-card {
+  position: relative; display: flex; flex-direction: column; gap: 0.7rem; padding: 0.9rem;
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: var(--shadow); transition: transform var(--transition);
+}
+.outfit-card:hover { transform: translateY(-2px); }
+.outfit-card h3 { font-size: 1.2rem; overflow-wrap: anywhere; }
+.outfit-card .fav-btn { top: 1.4rem; right: 1.4rem; }
+.outfit-card .card-actions { padding-top: 0.2rem; }
+.warn-tag { display: inline-flex; align-items: center; gap: 0.3rem; color: #c0564f; font-size: 0.8rem; }
+.outfit-preview-btn { all: unset; display: block; cursor: pointer; border-radius: var(--radius); }
+.outfit-preview-btn:focus-visible { outline: 2px solid var(--accent-strong); outline-offset: 2px; }
+
+.detail-list { margin: 1rem 0; display: grid; gap: 0.5rem; }
+.detail-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem; border: 1px solid var(--border); border-radius: var(--radius-sm); }
+.detail-row .piece-box { width: 52px; height: 52px; border-radius: 8px; overflow: hidden; flex-shrink: 0; background: var(--surface-alt); }
+.detail-row small { display: block; color: var(--text-soft); }
+.detail-row .gone { color: #c0564f; }
+@media (max-width: 640px) { .outfit-grid { grid-template-columns: 1fr; } }
