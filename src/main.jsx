@@ -8,6 +8,8 @@ import { ClosetProvider } from './context/ClosetProvider.jsx'
 import './styles/tokens.css'
 import './styles/base.css'
 import './styles/layout.css'
+import './styles/features.css'
+import './styles/refine.css' // siempre al final: ajusta el diseño de todo lo anterior
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>

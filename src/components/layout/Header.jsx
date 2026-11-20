@@ -1,6 +1,7 @@
 import { Moon, Sun, Shirt } from 'lucide-react'
 import { useTheme } from '../../hooks/useContexts'
 import { getTodayLabel } from '../../utils/dateUtils'
+import GlobalSearch from './GlobalSearch'
 
 export default function Header() {
   const { theme, toggleTheme } = useTheme()
@@ -9,6 +10,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-brand"><Shirt size={22} /> My Virtual Closet</div>
+      <GlobalSearch />
       <span className="header-date">{getTodayLabel()}</span>
       <button
         className="icon-btn"
