@@ -60,3 +60,14 @@ export async function deleteImage(id) {
   const db = await getDb()
   await db.delete(STORE, id)
 }
+
+// Usadas por las copias de seguridad: restaurar con el mismo id y vaciar todo.
+export async function saveImageWithId(id, blob) {
+  const db = await getDb()
+  await db.put(STORE, blob, id)
+}
+
+export async function clearImages() {
+  const db = await getDb()
+  await db.clear(STORE)
+}

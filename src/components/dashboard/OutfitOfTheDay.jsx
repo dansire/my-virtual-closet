@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom'
 import { Sparkles } from 'lucide-react'
 import EmptyState from '../common/EmptyState'
+import OutfitPreview from '../outfits/OutfitPreview'
 import { OCCASIONS, STYLES } from '../../constants'
+import { labelOf } from '../../utils/labels'
+import { resolveItems } from '../../services/outfitService'
 
-const labelOf = (list, value) => list.find((i) => i.value === value)?.label ?? value
-
-export default function OutfitOfTheDay({ outfit }) {
+export default function OutfitOfTheDay({ outfit, clothing }) {
   if (!outfit) {
     return (
       <EmptyState
@@ -18,20 +19,21 @@ export default function OutfitOfTheDay({ outfit }) {
     )
   }
 
-  const pieces = Object.values(outfit.items ?? {}).filter(Boolean).length
-
   return (
-    <div>
-      <h3>{outfit.name}</h3>
-      <p style={{ color: 'var(--text-soft)', margin: '0.4rem 0 0.8rem' }}>
-        {outfit.description || 'Un look listo para estrenar hoy.'}
-      </p>
-      <span className="tag">{labelOf(OCCASIONS, outfit.occasion)}</span>
-      <span className="tag">{labelOf(STYLES, outfit.style)}</span>
-      <span className="tag">{pieces} prendas</span>
-      <p style={{ marginTop: '1rem' }}>
-        <Link to="/outfits" className="btn btn-ghost">Ver mis outfits</Link>
-      </p>
+    <div className="otd">
+      <OutfitPreview pieces={resolveItems(outfit, clothing)} />
+      <div className="otd-info">
+        <h3>{outfit.name}</h3>
+        <p className="meta">{outfit.description || 'Un look listo para estrenar hoy.'}</p>
+        <div className="chips">
+          <span className="tag">{labelOf(OCCASIONS, outfit.occasion)}</span>
+          <span className="tag">{labelOf(STYLES, outfit.style)}</span>
+        </div>
+        <div className="otd-actions">
+          <Link to="/calendario" className="btn btn-primary">Planificar</Link>
+          <Link to="/outfits" className="btn btn-ghost">Ver mis outfits</Link>
+        </div>
+      </div>
     </div>
   )
 }

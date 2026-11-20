@@ -4,6 +4,7 @@ import { ImagePlus } from 'lucide-react'
 import { useClothing } from '../../hooks/useClothing'
 import { useToast } from '../../hooks/useContexts'
 import { useImageUrl } from '../../hooks/useImageUrl'
+import { useWishlist } from '../../hooks/useWishlist'
 import { validateClothing, todayString } from '../../services/clothingService'
 import { validateImageFile, compressImage, saveImage, deleteImage } from '../../services/imageService'
 import { CATEGORIES, SEASONS, STYLES } from '../../constants'
@@ -20,28 +21,31 @@ function Field({ id, label, error, hint, children, className = '' }) {
   )
 }
 
-export default function ClothingForm({ item }) {
+export default function ClothingForm({ item, prefill }) {
   const navigate = useNavigate()
   const { add, update } = useClothing()
   const { showToast } = useToast()
+  const { removeKeepImage } = useWishlist()
   const isEdit = Boolean(item)
+  // Imagen de partida: la de la prenda al editar, o la del deseo al moverlo al armario.
+  const baseImageId = item?.imageId ?? prefill?.imageId ?? null
 
   const [values, setValues] = useState(() => ({
-    name: item?.name ?? '',
-    category: item?.category ?? '',
+    name: item?.name ?? prefill?.name ?? '',
+    category: item?.category ?? prefill?.category ?? '',
     subcategory: item?.subcategory ?? '',
-    mainColor: item?.mainColor ?? '',
+    mainColor: item?.mainColor ?? prefill?.mainColor ?? '',
     secondaryColors: item?.secondaryColors ?? [],
     season: item?.season ?? '',
     style: item?.style ?? '',
-    description: item?.description ?? '',
+    description: item?.description ?? prefill?.description ?? '',
     createdAt: item?.createdAt ?? todayString(),
   }))
   const [errors, setErrors] = useState({})
   const [newImage, setNewImage] = useState(null) // { blob, preview }
   const [imageError, setImageError] = useState('')
   const [saving, setSaving] = useState(false)
-  const currentUrl = useImageUrl(item?.imageId)
+  const currentUrl = useImageUrl(baseImageId)
   const previewRef = useRef(null)
 
   // Libera la URL temporal de la vista previa al salir del formulario.
@@ -95,10 +99,10 @@ export default function ClothingForm({ item }) {
 
     setSaving(true)
     try {
-      let imageId = item?.imageId ?? null
+      let imageId = baseImageId
       if (newImage) {
         const newId = await saveImage(newImage.blob)
-        if (item?.imageId) await deleteImage(item.imageId)
+        if (baseImageId) await deleteImage(baseImageId)
         imageId = newId
       }
       const data = {
@@ -113,6 +117,7 @@ export default function ClothingForm({ item }) {
         showToast('Prenda actualizada')
       } else {
         add(data)
+        if (prefill?.wishlistId) removeKeepImage(prefill.wishlistId)
         showToast('Prenda agregada a tu armario')
       }
       navigate('/armario')
